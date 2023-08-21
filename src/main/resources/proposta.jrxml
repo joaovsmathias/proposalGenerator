@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="proposta" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9b7a0725-45b9-4781-a8fe-d200dfb674e9">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Mysql"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="358"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="631"/>
+	<queryString language="SQL">
+		<![CDATA[select * from proposta]]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="proposta"/>
+	</field>
+	<field name="data" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="data"/>
+		<property name="com.jaspersoft.studio.field.label" value="data"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="proposta"/>
+	</field>
+	<field name="identificao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="identificao"/>
+		<property name="com.jaspersoft.studio.field.label" value="identificao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="proposta"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="30" width="560" height="30" uuid="72198630-7976-4071-88c2-73a761c0f0e1"/>
+				<textElement textAlignment="Center">
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[Relatório]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="100" height="30" uuid="2908bae8-673a-4311-a531-46261cf531b8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7daa5f36-ad1c-40b8-818d-0ee31dc2f2a3"/>
+				</reportElement>
+				<text><![CDATA[id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="0" width="100" height="30" uuid="be8ebed9-e9e4-4bd3-ad28-edd5376390f1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="80d8cd1a-e05f-41f9-af1c-3cf58f9eb599"/>
+				</reportElement>
+				<text><![CDATA[identificao]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="20" width="100" height="30" uuid="1ce03e77-905f-48cb-87ef-5ee7c8e85b46">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7daa5f36-ad1c-40b8-818d-0ee31dc2f2a3"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="22" width="100" height="30" uuid="a86c8642-3a93-4b78-879e-19cc042cf05d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="80d8cd1a-e05f-41f9-af1c-3cf58f9eb599"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{identificao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
