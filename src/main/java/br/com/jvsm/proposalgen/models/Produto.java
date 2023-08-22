@@ -21,7 +21,7 @@ public class Produto {
 	private String descricao;
 	private BigDecimal valor;
 
-
+	/*
 	public List<Proposta> getProposta() {
 		return proposta;
 	}
@@ -30,9 +30,9 @@ public class Produto {
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	@ManyToMany(mappedBy = "produtos",cascade={CascadeType.MERGE})
-	private List<Proposta> proposta;
+	}*/
+	//@ManyToMany(mappedBy = "produtos",cascade={CascadeType.MERGE})
+	//private List<Proposta> proposta;
 
 	public long getId() {
 		return id;

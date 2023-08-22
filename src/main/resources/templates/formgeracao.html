@@ -38,13 +38,13 @@
 					</thead>
 					<tbody>
 
-						<tr th:each="eval, stat: *{produtos}">
-							<td><input th:field="*{produtos[__${stat.index}__].id}"> </input></td>
-							<td><input th:field="*{produtos[__${stat.index}__].nome}"> </input></td>
-							<td><input th:field="*{produtos[__${stat.index}__].descricao}"> </input></td>
-							<td><input th:field="*{produtos[__${stat.index}__].valor}"> </input></td>
-							<td><input th:field="*{quantidade[__${stat.index}__]}"></input></td>
-							<td><input th:field="*{desconto[__${stat.index}__]}"></input></td>
+						<tr th:each="eval, stat: *{produtosProposta}">
+							<td><input th:field="*{produtosProposta[__${stat.index}__].produto.id}"> </input></td>
+							<td><input th:field="*{produtosProposta[__${stat.index}__].produto.nome}"> </input></td>
+							<td><input th:field="*{produtosProposta[__${stat.index}__].produto.descricao}"> </input></td>
+							<td><input th:field="*{produtosProposta[__${stat.index}__].produto.valor}"> </input></td>
+							<td><input th:field="*{produtosProposta[__${stat.index}__].detalhes[0].quantidade}"></input></td>
+							<td><input th:field="*{produtosProposta[__${stat.index}__].detalhes[0].desconto}"></input></td>
 
 						</tr>
 					</tbody>

@@ -2,6 +2,7 @@ package br.com.jvsm.proposalgen.controllers;
 
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.jvsm.proposalgen.dto.RquisicaoPropostaDTO;
+import br.com.jvsm.proposalgen.models.DetalhesProdutoProposta;
 import br.com.jvsm.proposalgen.models.Produto;
+import br.com.jvsm.proposalgen.models.ProdutosProposta;
 import br.com.jvsm.proposalgen.models.Proposta;
 import br.com.jvsm.proposalgen.repository.ProdutoRepository;
 import br.com.jvsm.proposalgen.repository.PropostaRepository;
@@ -42,52 +45,76 @@ public class PropostaController {
 		
 		return "formpropostas";
 	}
+	
 	@PostMapping("/nova")
 	public String novo(Model model, RquisicaoPropostaDTO propostaDTO) {
-		//System.out.println(proposta.getNome());
-		//System.out.println(Arrays.toString( proposta.getProdutos().toArray()));
-		Proposta proposta = propostaDTO.toProposta();
-		List<Produto> produtos = new ArrayList<>();
-		//percorrer toda a lista de produtos e adicionar na proposta
-		List<Integer> quantidade = new ArrayList<>();
-		List<BigDecimal> desconto = new ArrayList<>();
-		proposta.setDesconto(desconto);
-		proposta.setQuantidade(quantidade);
 		
+		Proposta proposta = new Proposta();
+		//proposta = propostaDTO.toProposta();
+		//final Proposta finalProposta = proposta;
+		proposta.setIdentificao(propostaDTO.getNome());
+		proposta.setData(LocalDateTime.now());
+		
+		List<ProdutosProposta> listaProdutoProposta = new ArrayList<>();
+		
+
+						
 		propostaDTO.getProdutos().forEach(id ->{
 			Optional<Produto> produto = produtoRepository.findById(Long.parseLong(id));
-			//produto.get().setDesconto(new BigDecimal(0));
-			//produto.get().setQuantidade(1);
-			quantidade.add(1);
-			desconto.add(new BigDecimal(0));
-			produtos.add(produto.get());
+
+			ProdutosProposta produtoProposta = new ProdutosProposta();
+			produtoProposta.setProduto(produto.get());
+			produtoProposta.setProposta(proposta);
+			
+			List<DetalhesProdutoProposta> listaDetalhesProdutoProposta = new ArrayList<>();
+			
+			DetalhesProdutoProposta detalhesProdutoProposta = new DetalhesProdutoProposta();
+			detalhesProdutoProposta.setDesconto(new BigDecimal(0));
+			detalhesProdutoProposta.setQuantidade(1);
+			detalhesProdutoProposta.setProdutosProposta(produtoProposta);
+			
+			listaDetalhesProdutoProposta.add(detalhesProdutoProposta);
+			produtoProposta.setDetalhes(listaDetalhesProdutoProposta);
+			listaProdutoProposta.add(produtoProposta);
 			
 		});
-		proposta.setProdutos(produtos);
+		
+		
+		proposta.setProdutosProposta(listaProdutoProposta);
 		model.addAttribute("proposta", proposta);
-		//propostaRepository.save(proposta);
+		propostaRepository.save(proposta);
 		return "formgeracao";
 	}
 	
 	@PostMapping("/geracao")
 	public String geraProposta(Model model, Proposta proposta) {
-		/*
-		Proposta proposta2 = propostaRepository.getById(new Long(54));
+		Proposta ultimaProposta = propostaRepository.encontraUltimaProposta();
 		
-		System.out.println(proposta2.getIdentificao());
-		System.out.println(proposta2.getData());
-		proposta2.getProdutos().forEach(produto -> {
-			System.out.println(produto.getNome());
-			//produtoRepository.saveAndFlush(produto);
-		});
-		proposta2.getQuantidade().forEach(quantidade ->{
-			System.out.println(quantidade);
-		});
-		proposta2.getDesconto().forEach(desconto ->{
-			System.out.println(desconto);
-		});*/
-		propostaRepository.save(proposta);
-		model.addAttribute("id",proposta.getId());
+		
+		List<ProdutosProposta> listaProdutoPropostas = ultimaProposta.getProdutosProposta();
+		List<ProdutosProposta> listaProdutoPropostasTela = proposta.getProdutosProposta();
+		
+		
+		for(int i =0;i < listaProdutoPropostasTela.size();i++) {
+			ProdutosProposta produtoProposta = listaProdutoPropostas.get(i);
+		    ProdutosProposta produtoPropostaTela = listaProdutoPropostasTela.get(i);
+		    
+		    List<DetalhesProdutoProposta> detalhesProposta = produtoProposta.getDetalhes();
+		    List<DetalhesProdutoProposta> detalhesPropostaTela = produtoPropostaTela.getDetalhes();
+		    
+		    for(int j =0;j < detalhesPropostaTela.size();j++) {
+		    	//detalhesPropostaTela.get(j).setProdutosProposta(detalhesProposta.get(i).getProdutosProposta());
+		    	detalhesProposta.get(j).setDesconto(detalhesPropostaTela.get(j).getDesconto());
+		    	detalhesProposta.get(j).setQuantidade(detalhesPropostaTela.get(j).getQuantidade());
+		    }
+		   
+		   
+		    
+		}
+		
+		
+		propostaRepository.save(ultimaProposta);
+		
 		return "redirect:/proposta/cadastro";
 	}
 	
