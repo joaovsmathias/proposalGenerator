@@ -28,7 +28,7 @@ public interface PropostaRepository extends JpaRepository<Proposta,Long> {
 			+ "FROM Proposta p "
 			+ "JOIN (SELECT MAX(id) AS max_id FROM Proposta ) max_proposta ON p.id = max_proposta.max_id "
 			+ "JOIN ProdutosProposta pp ON p.id = pp.proposta.id "
-			+ "JOIN Produto pr ON pp.proposta.id = pr.id "
+			+ "JOIN Produto pr ON pp.produto.id = pr.id "
 			+ "JOIN DetalhesProdutoProposta dp ON pp.id = dp.produtosProposta.id")
 	List<PropostaRelatorioDTO> gerarRelatorio();
 }

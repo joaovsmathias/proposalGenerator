@@ -12,9 +12,10 @@ public class PropostaRelatorioDTO {
 	private Integer quantidade;
 	private BigDecimal desconto;
 
+	/*	
 	public PropostaRelatorioDTO() {
 
-	}
+	}*/
 
 	public PropostaRelatorioDTO(Long propostaId, Long produtosPropostaId, String nomeProduto,
 			String descricaoProduto, Integer quantidade, BigDecimal desconto) {
@@ -28,6 +29,7 @@ public class PropostaRelatorioDTO {
 
 	}
 
+	/*
 	public PropostaRelatorioDTO(Long propostaId, LocalDate dataProposta, Long produtosPropostaId, String nomeProduto,
 			String descricaoProduto, Integer quantidade, BigDecimal desconto) {
 		this.propostaId = propostaId;
@@ -37,7 +39,7 @@ public class PropostaRelatorioDTO {
 		this.descricaoProduto = descricaoProduto;
 		this.quantidade = quantidade;
 		this.desconto = desconto;
-	}
+	}*/
 	public Long getPropostaId() {
 		return propostaId;
 	}
