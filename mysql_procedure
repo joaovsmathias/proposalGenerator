@@ -1,6 +1,7 @@
 drop database proposalgen;
 create database proposalgen;
 use proposalgen;
+
 insert into produto (id,descricao,nome,valor) VALUES (1,'p1','produto 1',123);
 insert into produto (id,descricao,nome,valor) VALUES (2,'p2','produto 2',523);
 insert into produto (id,descricao,nome,valor) VALUES (3,'p3','produto 3',653);

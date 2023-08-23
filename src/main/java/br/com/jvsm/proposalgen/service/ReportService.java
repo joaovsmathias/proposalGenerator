@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
-import br.com.jvsm.proposalgen.models.Proposta;
+import br.com.jvsm.proposalgen.dto.PropostaRelatorioDTO;
 import br.com.jvsm.proposalgen.repository.PropostaRepository;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -27,7 +27,8 @@ public class ReportService {
 	PropostaRepository propostaRepository;
 
 	public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
-		List<Proposta> propostas = propostaRepository.findAll();
+		List<PropostaRelatorioDTO> propostas = propostaRepository.gerarRelatorio();
+		
 		File file = ResourceUtils.getFile("classpath:proposta.jrxml");
 		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 		JRBeanCollectionDataSource dataSource = new  JRBeanCollectionDataSource(propostas);
@@ -40,6 +41,7 @@ public class ReportService {
 		if(reportFormat.equalsIgnoreCase("pdf")) {
 			JasperExportManager.exportReportToPdfFile(jasperPrint, "/home/joaovictor/"+"proposta.pdf");
 		}
+		
 		return"Relatório gerado com sucesso!!";
 	}
 }

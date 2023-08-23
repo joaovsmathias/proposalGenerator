@@ -17,7 +17,7 @@ public class DetalhesProdutoProposta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "produtos_proposta_id")
     private ProdutosProposta produtosProposta;
 
