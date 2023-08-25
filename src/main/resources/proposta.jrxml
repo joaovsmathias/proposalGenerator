@@ -132,6 +132,10 @@ JOIN detalhes_produto_proposta dp ON pp.id = dp.produtos_proposta_id]]>
 			<property name="com.jaspersoft.studio.field.label" value="desconto"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="detalhes_produto_proposta"/>
 		</field>
+		<variable name="VT" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[($F{produtoValor}.doubleValue()*$F{quantidade}.doubleValue())-$F{desconto}.doubleValue()]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
 		<group name="produtosPropostaId">
 			<groupExpression><![CDATA[$F{produtosPropostaId}]]></groupExpression>
 		</group>
@@ -205,13 +209,17 @@ JOIN detalhes_produto_proposta dp ON pp.id = dp.produtos_proposta_id]]>
 		<property name="com.jaspersoft.studio.field.label" value="desconto"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="detalhes_produto_proposta"/>
 	</field>
+	<variable name="Total" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{quantidade}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="80" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="540" height="70" uuid="6337231c-4f40-4308-842b-c3cc6389df34"/>
+				<reportElement x="-10" y="0" width="550" height="70" uuid="6337231c-4f40-4308-842b-c3cc6389df34"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="0" y="30" width="560" height="30" uuid="72198630-7976-4071-88c2-73a761c0f0e1"/>
@@ -225,7 +233,7 @@ JOIN detalhes_produto_proposta dp ON pp.id = dp.produtos_proposta_id]]>
 	<pageHeader>
 		<band height="352">
 			<componentElement>
-				<reportElement x="0" y="0" width="540" height="200" uuid="cf11e28e-e31f-46fe-b6a9-6fc4de466fe0">
+				<reportElement x="-10" y="0" width="550" height="200" uuid="cf11e28e-e31f-46fe-b6a9-6fc4de466fe0">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
@@ -272,10 +280,10 @@ JOIN detalhes_produto_proposta dp ON pp.id = dp.produtos_proposta_id]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="189" uuid="013dedb8-8624-4d16-b5b5-7263f9738c22">
+					<jr:column width="179" uuid="013dedb8-8624-4d16-b5b5-7263f9738c22">
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="189" height="30" uuid="7cc38c4d-d317-45fb-b8a3-cdc335ea79e5"/>
+								<reportElement x="0" y="0" width="179" height="30" uuid="7cc38c4d-d317-45fb-b8a3-cdc335ea79e5"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<text><![CDATA[Descrição]]></text>
 							</staticText>
@@ -283,7 +291,7 @@ JOIN detalhes_produto_proposta dp ON pp.id = dp.produtos_proposta_id]]>
 						<jr:columnFooter style="Table_CH" height="30"/>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement x="0" y="0" width="189" height="30" uuid="1ed495d6-e7bc-42c8-8def-bf5b5a86afa9"/>
+								<reportElement x="0" y="0" width="179" height="30" uuid="1ed495d6-e7bc-42c8-8def-bf5b5a86afa9"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{descricaoProduto}]]></textFieldExpression>
 							</textField>
@@ -314,7 +322,15 @@ JOIN detalhes_produto_proposta dp ON pp.id = dp.produtos_proposta_id]]>
 								<text><![CDATA[Quantidade]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="Table_CH" height="30"/>
+						<jr:columnFooter style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="65" height="30" uuid="cc133d79-1dcd-47c1-a9b0-7891d7e1a55d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total:R$]]></text>
+							</staticText>
+						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
 								<reportElement x="0" y="0" width="65" height="30" uuid="af99edf5-e8fd-4314-b120-47950f42a7c3"/>
@@ -323,18 +339,26 @@ JOIN detalhes_produto_proposta dp ON pp.id = dp.produtos_proposta_id]]>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="60" uuid="5e9f1a5c-1555-4c60-bac6-ec4400609008">
+					<jr:column width="80" uuid="5e9f1a5c-1555-4c60-bac6-ec4400609008">
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="60" height="30" uuid="e99bb78a-c7f8-4d5e-a594-cc140eadc673"/>
+								<reportElement x="0" y="0" width="80" height="30" uuid="e99bb78a-c7f8-4d5e-a594-cc140eadc673"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<text><![CDATA[Desconto]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="Table_CH" height="30"/>
+						<jr:columnFooter style="Table_CH" height="30">
+							<textField pattern="#,##0.00#####;#,##0.00#####-">
+								<reportElement x="0" y="0" width="80" height="30" printWhenGroupChanges="nomeProduto" uuid="7fae707e-4056-4192-875b-0e8362cdc5b0"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{VT}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement x="0" y="0" width="60" height="30" uuid="34f44e33-fd4a-49e3-a454-4f0c91f78d57"/>
+								<reportElement x="0" y="0" width="80" height="30" uuid="34f44e33-fd4a-49e3-a454-4f0c91f78d57"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{desconto}]]></textFieldExpression>
 							</textField>
