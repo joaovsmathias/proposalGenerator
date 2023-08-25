@@ -11,6 +11,7 @@ public class PropostaRelatorioDTO {
 	private String descricaoProduto;
 	private Integer quantidade;
 	private BigDecimal desconto;
+	private BigDecimal produtoValor;
 
 	/*	
 	public PropostaRelatorioDTO() {
@@ -18,7 +19,7 @@ public class PropostaRelatorioDTO {
 	}*/
 
 	public PropostaRelatorioDTO(Long propostaId, Long produtosPropostaId, String nomeProduto,
-			String descricaoProduto, Integer quantidade, BigDecimal desconto) {
+			String descricaoProduto, Integer quantidade, BigDecimal desconto,BigDecimal produtoValor) {
 
 		this.propostaId = propostaId;
 		this.produtosPropostaId = produtosPropostaId;
@@ -26,6 +27,7 @@ public class PropostaRelatorioDTO {
 		this.descricaoProduto = descricaoProduto;
 		this.quantidade = quantidade;
 		this.desconto = desconto;
+		this.produtoValor = produtoValor;
 
 	}
 
@@ -46,6 +48,15 @@ public class PropostaRelatorioDTO {
 	public void setPropostaId(Long propostaId) {
 		this.propostaId = propostaId;
 	}
+	
+	public BigDecimal getProdutoValor() {
+		return produtoValor;
+	}
+
+	public void setProdutoValor(BigDecimal produtoValor) {
+		this.produtoValor = produtoValor;
+	}
+
 	public LocalDate getDataProposta() {
 		return dataProposta;
 	}

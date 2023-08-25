@@ -29,14 +29,14 @@ public class ReportService {
 
 	public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
 		List<PropostaRelatorioDTO> propostas = propostaRepository.gerarRelatorio();
-		
+		propostas.add(0, null);
 		File file = ResourceUtils.getFile("classpath:proposta.jrxml");
 		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 		JRBeanCollectionDataSource dataSource = new  JRBeanCollectionDataSource(propostas);
 		Map<String, Object> map = new HashMap<>();
 		map.put("createdBy", "jvsm");
-		map.put("JASPER_REPORT", dataSource);
-		//new JREmptyDataSource()
+		//map.put("JASPER_REPORT", dataSource.cloneDataSource());
+		dataSource.moveFirst();
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,map, dataSource);
 		if(reportFormat.equalsIgnoreCase("html")) {
 			JasperExportManager.exportReportToHtmlFile(jasperPrint, "/home/joaovictor/"+"proposta.html");

@@ -5,7 +5,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Mysql"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="358"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="631"/>
-	<style name="Table_TH" mode="Opaque" backcolor="#0061DE">
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -14,7 +14,7 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Table_CH" mode="Opaque" backcolor="#E6F1FF">
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -37,11 +37,11 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Mysql"/>
 		<queryString language="SQL">
 			<![CDATA[SELECT
-    p.id AS propostaId,
+    p.id AS proposta_id,
     p.data AS data_proposta,
-    pp.id AS produtos_propostaId,
-    pr.nome AS nomeProduto,
-    pr.descricao AS descricaoProduto,
+    pp.id AS produtos_proposta_id,
+    pr.nome AS nome_produto,
+    pr.descricao AS descricao_produto,
     dp.quantidade AS quantidade,
     dp.desconto AS desconto
 FROM proposta p
@@ -50,23 +50,23 @@ JOIN (
     FROM proposta
 ) max_proposta
 ON p.id = max_proposta.max_id
-JOIN produtos_proposta pp ON p.id = pp.propostaId
+JOIN produtos_proposta pp ON p.id = pp.proposta_id
 JOIN produto pr ON pp.produto_id = pr.id
-JOIN detalhes_produto_proposta dp ON pp.id = dp.produtos_propostaId]]>
+JOIN detalhes_produto_proposta dp ON pp.id = dp.produtos_proposta_id]]>
 		</queryString>
-		<field name="propostaId" class="java.lang.Long">
+		<field name="proposta_id" class="java.lang.Long">
 			<property name="com.jaspersoft.studio.field.name" value="id"/>
-			<property name="com.jaspersoft.studio.field.label" value="propostaId"/>
+			<property name="com.jaspersoft.studio.field.label" value="proposta_id"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="proposta"/>
 		</field>
-		<field name="nomeProduto" class="java.lang.String">
+		<field name="nome_produto" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="nome"/>
-			<property name="com.jaspersoft.studio.field.label" value="nomeProduto"/>
+			<property name="com.jaspersoft.studio.field.label" value="nome_produto"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="produto"/>
 		</field>
-		<field name="descricaoProduto" class="java.lang.String">
+		<field name="descricao_produto" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.name" value="descricao"/>
-			<property name="com.jaspersoft.studio.field.label" value="descricaoProduto"/>
+			<property name="com.jaspersoft.studio.field.label" value="descricao_produto"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="produto"/>
 		</field>
 		<field name="quantidade" class="java.lang.Integer">
@@ -80,13 +80,16 @@ JOIN detalhes_produto_proposta dp ON pp.id = dp.produtos_propostaId]]>
 			<property name="com.jaspersoft.studio.field.tree.path" value="detalhes_produto_proposta"/>
 		</field>
 	</subDataset>
-	<queryString language="SQL">
-		<![CDATA[SELECT
+	<subDataset name="Dataset2" uuid="3fc72bcf-8712-4214-b8ce-b259797128aa">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Mysql"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT
     p.id AS propostaId,
-    p.data AS data_proposta,
     pp.id AS produtosPropostaId,
     pr.nome AS nomeProduto,
     pr.descricao AS descricaoProduto,
+    pr.valor as produtoValor,
     dp.quantidade AS quantidade,
     dp.desconto AS desconto
 FROM proposta p
@@ -95,9 +98,77 @@ JOIN (
     FROM proposta
 ) max_proposta
 ON p.id = max_proposta.max_id
-JOIN produtos_proposta pp ON p.id = pp.propostaId
+JOIN produtos_proposta pp ON p.id = pp.proposta_id
 JOIN produto pr ON pp.produto_id = pr.id
-JOIN detalhes_produto_proposta dp ON pp.id = dp.produtos_propostaId]]>
+JOIN detalhes_produto_proposta dp ON pp.id = dp.produtos_proposta_id]]>
+		</queryString>
+		<field name="produtosPropostaId" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.name" value="id"/>
+			<property name="com.jaspersoft.studio.field.label" value="produtosPropostaId"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="produtos_proposta"/>
+		</field>
+		<field name="nomeProduto" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="nome"/>
+			<property name="com.jaspersoft.studio.field.label" value="nomeProduto"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="produto"/>
+		</field>
+		<field name="descricaoProduto" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="descricao"/>
+			<property name="com.jaspersoft.studio.field.label" value="descricaoProduto"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="produto"/>
+		</field>
+		<field name="produtoValor" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="valor"/>
+			<property name="com.jaspersoft.studio.field.label" value="produtoValor"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="produto"/>
+		</field>
+		<field name="quantidade" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="quantidade"/>
+			<property name="com.jaspersoft.studio.field.label" value="quantidade"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="detalhes_produto_proposta"/>
+		</field>
+		<field name="desconto" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="desconto"/>
+			<property name="com.jaspersoft.studio.field.label" value="desconto"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="detalhes_produto_proposta"/>
+		</field>
+		<group name="produtosPropostaId">
+			<groupExpression><![CDATA[$F{produtosPropostaId}]]></groupExpression>
+		</group>
+		<group name="nomeProduto">
+			<groupExpression><![CDATA[$F{nomeProduto}]]></groupExpression>
+		</group>
+		<group name="descricaoProduto">
+			<groupExpression><![CDATA[$F{descricaoProduto}]]></groupExpression>
+		</group>
+		<group name="produtoValor">
+			<groupExpression><![CDATA[$F{produtoValor}]]></groupExpression>
+		</group>
+		<group name="quantidade">
+			<groupExpression><![CDATA[$F{quantidade}]]></groupExpression>
+		</group>
+		<group name="desconto">
+			<groupExpression><![CDATA[$F{desconto}]]></groupExpression>
+		</group>
+	</subDataset>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+    p.id AS propostaId,
+    pp.id AS produtosPropostaId,
+    pr.nome AS nomeProduto,
+    pr.descricao AS descricaoProduto,
+    pr.valor as produtoValor,
+    dp.quantidade AS quantidade,
+    dp.desconto AS desconto
+FROM proposta p
+JOIN (
+    SELECT MAX(id) AS max_id
+    FROM proposta
+) max_proposta
+ON p.id = max_proposta.max_id
+JOIN produtos_proposta pp ON p.id = pp.proposta_id
+JOIN produto pr ON pp.produto_id = pr.id
+JOIN detalhes_produto_proposta dp ON pp.id = dp.produtos_proposta_id]]>
 	</queryString>
 	<field name="propostaId" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="id"/>
@@ -117,6 +188,11 @@ JOIN detalhes_produto_proposta dp ON pp.id = dp.produtos_propostaId]]>
 	<field name="descricaoProduto" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="descricao"/>
 		<property name="com.jaspersoft.studio.field.label" value="descricaoProduto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="produto"/>
+	</field>
+	<field name="produtoValor" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="valor"/>
+		<property name="com.jaspersoft.studio.field.label" value="produtoValor"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="produto"/>
 	</field>
 	<field name="quantidade" class="java.lang.Integer">
@@ -147,106 +223,118 @@ JOIN detalhes_produto_proposta dp ON pp.id = dp.produtos_propostaId]]>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="151">
+		<band height="352">
 			<componentElement>
-				<reportElement x="0" y="15" width="540" height="125" uuid="0ee3afae-e38e-4cfd-b012-bf6b1f29843a">
+				<reportElement x="0" y="0" width="540" height="200" uuid="cf11e28e-e31f-46fe-b6a9-6fc4de466fe0">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Dataset1" uuid="08dc59e7-23ba-4dbd-adde-0bea9f0df209">
+					<datasetRun subDataset="Dataset2" uuid="c56a7bac-98b5-42d0-b3e3-bd77ed9fcac1">
 						<datasetParameter name="JASPER_REPORT">
 							<datasetParameterExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></datasetParameterExpression>
 						</datasetParameter>
 						<dataSourceExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></dataSourceExpression>
 					</datasetRun>
-					<jr:column width="40" uuid="8e7e96fc-0fac-42f8-acf4-89c18f3955e5">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+					<jr:column width="33" uuid="ae30eeee-201c-4ea7-8c76-44c6109a7b68">
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="40" height="30" uuid="6da06e86-4662-402e-ae5d-6e3396face47"/>
+								<reportElement x="0" y="0" width="33" height="30" uuid="55c4cce6-a449-431b-bb39-074ab03e7c75"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<text><![CDATA[Id]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="30"/>
 						<jr:detailCell style="Table_TD" height="30">
-							<textField evaluationTime="Band">
-								<reportElement x="0" y="0" width="40" height="30" uuid="b922b54f-f209-4098-ba6e-9c3751b4bfd5"/>
+							<textField>
+								<reportElement x="0" y="0" width="33" height="30" uuid="15002301-cf9f-427a-b659-45f8736ad864"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{propostaId}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{produtosPropostaId}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="110" uuid="7a2a6858-8e8f-4fd7-8f9d-84ecee8fafdd">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+					<jr:column width="127" uuid="3d9d5e00-685c-40c7-924f-279dc45e6f20">
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="110" height="30" uuid="72d1f38b-493b-4e92-a78e-2ae01fcd07f2"/>
+								<reportElement x="0" y="0" width="127" height="30" uuid="b59913e1-ecd2-4471-942b-c373dc7a8b68"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<text><![CDATA[Produto]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="30"/>
 						<jr:detailCell style="Table_TD" height="30">
-							<textField evaluationTime="Band">
-								<reportElement x="0" y="0" width="110" height="30" uuid="788c089e-9e47-448b-9c93-62073a27f22e"/>
+							<textField>
+								<reportElement x="0" y="0" width="127" height="30" uuid="a5f3a94e-504b-4832-929c-5edf7ad4b93f"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{nomeProduto}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="210" uuid="43230b97-a683-480e-b542-39388b8c8733">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+					<jr:column width="189" uuid="013dedb8-8624-4d16-b5b5-7263f9738c22">
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="210" height="30" uuid="6b38d679-9f33-4c91-b091-3d51e64bdf9d"/>
+								<reportElement x="0" y="0" width="189" height="30" uuid="7cc38c4d-d317-45fb-b8a3-cdc335ea79e5"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<text><![CDATA[Descrição]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="30"/>
 						<jr:detailCell style="Table_TD" height="30">
-							<textField evaluationTime="Band">
-								<reportElement x="0" y="0" width="210" height="30" uuid="2586da8d-540a-474a-ba54-7f40dca395e3"/>
+							<textField>
+								<reportElement x="0" y="0" width="189" height="30" uuid="1ed495d6-e7bc-42c8-8def-bf5b5a86afa9"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{descricaoProduto}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90" uuid="dcaeced3-3559-4b92-805d-d7d1df4fdf9c">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+					<jr:column width="65" uuid="5a8ba8f5-c57c-453e-89fd-e47dff5f2a2d">
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="30" uuid="6ace5d38-8edd-43c0-932b-edbb1e809f5e"/>
+								<reportElement x="0" y="0" width="65" height="30" uuid="c674490b-71d9-456f-affc-cade897448bd"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Valor]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_CH" height="30"/>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="65" height="30" uuid="b08cdb3a-5a2c-40c1-b237-ede2a2a72673"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{produtoValor}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="65" uuid="5f945ea5-3e9a-4bbf-a1c0-d94a01e1fe98">
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="65" height="30" uuid="1b5f6451-3879-4cb6-8fd4-2d35bf17ac14"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<text><![CDATA[Quantidade]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="30"/>
 						<jr:detailCell style="Table_TD" height="30">
-							<textField evaluationTime="Band">
-								<reportElement x="0" y="0" width="90" height="30" uuid="48795ac4-67b3-40e7-a383-dd253fb30edc"/>
+							<textField>
+								<reportElement x="0" y="0" width="65" height="30" uuid="af99edf5-e8fd-4314-b120-47950f42a7c3"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90" uuid="673f414f-5870-45aa-a1e4-4c6c44663c78">
-						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+					<jr:column width="60" uuid="5e9f1a5c-1555-4c60-bac6-ec4400609008">
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="30" uuid="4e8cacbf-da7d-428f-8b7d-dff71c63a212"/>
+								<reportElement x="0" y="0" width="60" height="30" uuid="e99bb78a-c7f8-4d5e-a594-cc140eadc673"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<text><![CDATA[Desconto]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="30"/>
 						<jr:detailCell style="Table_TD" height="30">
-							<textField evaluationTime="Band">
-								<reportElement x="0" y="0" width="90" height="30" uuid="1a38d711-2308-4384-aca0-9cbee666fb9b"/>
+							<textField>
+								<reportElement x="0" y="0" width="60" height="30" uuid="34f44e33-fd4a-49e3-a454-4f0c91f78d57"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{desconto}]]></textFieldExpression>
 							</textField>

@@ -24,7 +24,7 @@ public interface PropostaRepository extends JpaRepository<Proposta,Long> {
 	         + "JOIN Produto pr ON pp.proposta.id = pr.id "
 	         + "JOIN DetalhesProdutoProposta dp ON pp.id = dp.produtosProposta.id")*/
 	
-	@Query("SELECT new br.com.jvsm.proposalgen.dto.PropostaRelatorioDTO(p.id, pp.id, pr.nome, pr.descricao, dp.quantidade, dp.desconto) "
+	@Query("SELECT new br.com.jvsm.proposalgen.dto.PropostaRelatorioDTO(p.id, pp.id, pr.nome, pr.descricao, dp.quantidade, dp.desconto, pr.valor) "
 			+ "FROM Proposta p "
 			+ "JOIN (SELECT MAX(id) AS max_id FROM Proposta ) max_proposta ON p.id = max_proposta.max_id "
 			+ "JOIN ProdutosProposta pp ON p.id = pp.proposta.id "
