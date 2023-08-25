@@ -30,7 +30,9 @@ public class ReportService {
 	public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
 		List<PropostaRelatorioDTO> propostas = propostaRepository.gerarRelatorio();
 		propostas.add(0, null);
-		File file = ResourceUtils.getFile("classpath:proposta.jrxml");
+		//File file = ResourceUtils.getFile("classpath:proposta.jrxml");
+		
+		File file = new File("/home/joaovictor/Downloads/proposalgen/proposalgen/src/main/resources/proposta.jrxml");
 		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 		JRBeanCollectionDataSource dataSource = new  JRBeanCollectionDataSource(propostas);
 		Map<String, Object> map = new HashMap<>();
