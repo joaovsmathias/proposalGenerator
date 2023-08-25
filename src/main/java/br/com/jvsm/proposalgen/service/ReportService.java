@@ -12,6 +12,7 @@ import org.springframework.util.ResourceUtils;
 
 import br.com.jvsm.proposalgen.dto.PropostaRelatorioDTO;
 import br.com.jvsm.proposalgen.repository.PropostaRepository;
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -34,6 +35,8 @@ public class ReportService {
 		JRBeanCollectionDataSource dataSource = new  JRBeanCollectionDataSource(propostas);
 		Map<String, Object> map = new HashMap<>();
 		map.put("createdBy", "jvsm");
+		map.put("JASPER_REPORT", dataSource);
+		//new JREmptyDataSource()
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,map, dataSource);
 		if(reportFormat.equalsIgnoreCase("html")) {
 			JasperExportManager.exportReportToHtmlFile(jasperPrint, "/home/joaovictor/"+"proposta.html");
